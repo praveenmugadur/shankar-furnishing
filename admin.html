@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Portal — Shankar Furnishing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <!-- Login Screen -->
+    <div class="login-screen" id="login-screen">
+        <div class="login-card">
+            <div class="login-brand">
+                <span class="login-icon">✦</span>
+                <h1>Shankar Furnishing</h1>
+                <p>Admin Portal</p>
+            </div>
+            <form id="login-form" autocomplete="off">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="admin@shankarfurnishing.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter password" required>
+                </div>
+                <div class="login-error" id="login-error"></div>
+                <button type="submit" class="btn-login" id="login-btn">
+                    <span>Sign In</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+            </form>
+            <div class="login-footer">
+                <p>Contact Praveen if you forgot your password</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-dashboard" id="admin-dashboard" style="display:none;">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-icon">✦</span>
+                <span class="brand-text">SF Admin</span>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-section="gallery" id="nav-gallery">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                    <span>Gallery</span>
+                </button>
+                <button class="nav-item" data-section="categories" id="nav-categories">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg>
+                    <span>Categories</span>
+                </button>
+                <button class="nav-item" data-section="content" id="nav-content">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    <span>Site Content</span>
+                </button>
+                <button class="nav-item" data-section="testimonials" id="nav-testimonials">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                    <span>Reviews</span>
+                </button>
+                <button class="nav-item" data-section="contact" id="nav-contact">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                    <span>Contact</span>
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="nav-item logout-btn" id="logout-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Mobile Header -->
+        <header class="mobile-header" id="mobile-header">
+            <button class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </button>
+            <span class="mobile-title">SF Admin</span>
+            <button class="mobile-logout" id="mobile-logout">Logout</button>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content" id="main-content">
+            <!-- Gallery Section -->
+            <section class="content-section active" id="section-gallery">
+                <div class="section-top">
+                    <div>
+                        <h2>Gallery Management</h2>
+                        <p class="section-subtitle">Add, edit or remove gallery images</p>
+                    </div>
+                    <button class="btn-action" id="add-image-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                        Add Image
+                    </button>
+                </div>
+                <!-- Upload Modal -->
+                <div class="modal-overlay" id="upload-modal" style="display:none;">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h3 id="upload-modal-title">Add Gallery Image</h3>
+                            <button class="modal-close" id="upload-modal-close">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="upload-zone" id="upload-zone">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                                <p>Drag & drop image here or <span class="upload-browse">browse</span></p>
+                                <span class="upload-hint">JPG, PNG or WebP — Max 5MB</span>
+                                <input type="file" id="image-file-input" accept="image/*" hidden>
+                            </div>
+                            <div class="upload-preview" id="upload-preview" style="display:none;">
+                                <img id="preview-img" src="" alt="Preview">
+                                <button class="btn-remove-preview" id="remove-preview">×</button>
+                            </div>
+                            <div class="form-group">
+                                <label for="image-title">Image Title</label>
+                                <input type="text" id="image-title" placeholder="e.g. Luxury Bedroom Curtains">
+                            </div>
+                            <div class="form-group">
+                                <label for="image-category">Category</label>
+                                <select id="image-category">
+                                    <option value="curtains">Curtains</option>
+                                    <option value="blinds">Roman Blinds</option>
+                                    <option value="headboards">Headboards</option>
+                                    <option value="upholstery">Upholstery</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn-secondary" id="upload-cancel">Cancel</button>
+                            <button class="btn-action" id="upload-save">Save Image</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Gallery Grid -->
+                <div class="admin-gallery-filters">
+                    <button class="filter-chip active" data-filter="all">All</button>
+                    <button class="filter-chip" data-filter="curtains">Curtains</button>
+                    <button class="filter-chip" data-filter="blinds">Blinds</button>
+                    <button class="filter-chip" data-filter="headboards">Headboards</button>
+                    <button class="filter-chip" data-filter="upholstery">Upholstery</button>
+                </div>
+                <div class="admin-gallery-grid" id="admin-gallery-grid">
+                    <div class="gallery-loading">Loading gallery...</div>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section class="content-section" id="section-categories" style="display:none;">
+                <div class="section-top">
+                    <div>
+                        <h2>Categories</h2>
+                        <p class="section-subtitle">Manage gallery filter categories</p>
+                    </div>
+                    <button class="btn-action" id="add-category-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                        Add Category
+                    </button>
+                </div>
+                <div class="categories-list" id="categories-list"></div>
+            </section>
+
+            <!-- Site Content Section -->
+            <section class="content-section" id="section-content" style="display:none;">
+                <div class="section-top">
+                    <div>
+                        <h2>Site Content</h2>
+                        <p class="section-subtitle">Edit text and numbers displayed on the website</p>
+                    </div>
+                    <button class="btn-action" id="save-content-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17,21 17,13 7,13 7,21"/><polyline points="7,3 7,8 15,8"/></svg>
+                        Save Changes
+                    </button>
+                </div>
+                <div class="content-editor">
+                    <div class="editor-card">
+                        <h3>Hero Section</h3>
+                        <div class="form-group">
+                            <label for="hero-badge">Badge Text</label>
+                            <input type="text" id="hero-badge" placeholder="Premium Interior Furnishing">
+                        </div>
+                        <div class="form-group">
+                            <label for="hero-title">Main Title</label>
+                            <input type="text" id="hero-title" placeholder="Crafting Extraordinary Spaces">
+                        </div>
+                        <div class="form-group">
+                            <label for="hero-subtitle">Subtitle</label>
+                            <textarea id="hero-subtitle" rows="3" placeholder="From elegant curtains..."></textarea>
+                        </div>
+                    </div>
+                    <div class="editor-card">
+                        <h3>Stats / Numbers</h3>
+                        <div class="stats-grid-editor">
+                            <div class="form-group">
+                                <label for="stat-projects">Projects Completed</label>
+                                <input type="number" id="stat-projects" placeholder="5000">
+                            </div>
+                            <div class="form-group">
+                                <label for="stat-years">Years Experience</label>
+                                <input type="number" id="stat-years" placeholder="25">
+                            </div>
+                            <div class="form-group">
+                                <label for="stat-clients">Happy Clients</label>
+                                <input type="number" id="stat-clients" placeholder="10000">
+                            </div>
+                            <div class="form-group">
+                                <label for="stat-rating">Google Rating</label>
+                                <input type="text" id="stat-rating" placeholder="4.8">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="editor-card">
+                        <h3>About Section</h3>
+                        <div class="form-group">
+                            <label for="about-title">Title</label>
+                            <input type="text" id="about-title" placeholder="Crafting Beautiful Spaces Since 2000">
+                        </div>
+                        <div class="form-group">
+                            <label for="about-desc">Description</label>
+                            <textarea id="about-desc" rows="4" placeholder="At Shankar Furnishing..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section class="content-section" id="section-testimonials" style="display:none;">
+                <div class="section-top">
+                    <div>
+                        <h2>Customer Reviews</h2>
+                        <p class="section-subtitle">Manage testimonials shown on the website</p>
+                    </div>
+                    <button class="btn-action" id="add-testimonial-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                        Add Review
+                    </button>
+                </div>
+                <div class="testimonials-list" id="testimonials-list"></div>
+                <!-- Testimonial Modal -->
+                <div class="modal-overlay" id="testimonial-modal" style="display:none;">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h3 id="testimonial-modal-title">Add Review</h3>
+                            <button class="modal-close" id="testimonial-modal-close">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="review-name">Customer Name</label>
+                                <input type="text" id="review-name" placeholder="e.g. Rajesh Kumar">
+                            </div>
+                            <div class="form-group">
+                                <label for="review-location">Location</label>
+                                <input type="text" id="review-location" placeholder="e.g. Hubli">
+                            </div>
+                            <div class="form-group">
+                                <label for="review-stars">Rating</label>
+                                <select id="review-stars">
+                                    <option value="5">★★★★★ (5 Stars)</option>
+                                    <option value="4">★★★★ (4 Stars)</option>
+                                    <option value="3">★★★ (3 Stars)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="review-text">Review Text</label>
+                                <textarea id="review-text" rows="4" placeholder="What the customer said..."></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn-secondary" id="testimonial-cancel">Cancel</button>
+                            <button class="btn-action" id="testimonial-save">Save Review</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="content-section" id="section-contact" style="display:none;">
+                <div class="section-top">
+                    <div>
+                        <h2>Contact Information</h2>
+                        <p class="section-subtitle">Update business contact details</p>
+                    </div>
+                    <button class="btn-action" id="save-contact-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17,21 17,13 7,13 7,21"/><polyline points="7,3 7,8 15,8"/></svg>
+                        Save Changes
+                    </button>
+                </div>
+                <div class="content-editor">
+                    <div class="editor-card">
+                        <h3>Business Details</h3>
+                        <div class="form-group">
+                            <label for="contact-owner">Owner Name</label>
+                            <input type="text" id="contact-owner" placeholder="Siddu Hanchinal">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-phone">Phone Number</label>
+                            <input type="tel" id="contact-phone" placeholder="+91 9449246800">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-whatsapp">WhatsApp Number (with country code)</label>
+                            <input type="text" id="contact-whatsapp" placeholder="919449246800">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-location">Address</label>
+                            <input type="text" id="contact-location" placeholder="Shankar Furnishing, Hubli-Dharwad, Karnataka">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-hours">Working Hours</label>
+                            <input type="text" id="contact-hours" placeholder="Mon–Sat: 9:00 AM – 8:00 PM">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-maps">Google Maps Embed URL</label>
+                            <textarea id="contact-maps" rows="3" placeholder="Paste Google Maps embed URL here"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast-icon" id="toast-icon">✓</span>
+        <span class="toast-msg" id="toast-msg">Saved successfully!</span>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
