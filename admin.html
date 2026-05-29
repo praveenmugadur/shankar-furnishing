@@ -97,10 +97,16 @@
                         <h2>Gallery Management</h2>
                         <p class="section-subtitle">Add, edit or remove gallery images</p>
                     </div>
-                    <button class="btn-action" id="add-image-btn">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-                        Add Image
-                    </button>
+                    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                        <button class="btn-secondary" id="seed-data-btn" onclick="seedExistingData()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg>
+                            Migrate Existing Images
+                        </button>
+                        <button class="btn-action" id="add-image-btn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                            Add Image
+                        </button>
+                    </div>
                 </div>
                 <!-- Upload Modal -->
                 <div class="modal-overlay" id="upload-modal" style="display:none;">

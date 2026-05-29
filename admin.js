@@ -545,3 +545,95 @@ function showToast(msg, isError = false) {
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 3000);
 }
+
+// ---- Seed Existing Data ----
+const EXISTING_GALLERY = [
+    { src: 'images/curtain-dark-living-room-1.jpg', title: 'Dark Elegance Living Room', category: 'curtains' },
+    { src: 'images/curtain-dark-living-room-2.jpg', title: 'Premium Living Room Drapes', category: 'curtains' },
+    { src: 'images/curtain-beige-bedroom-1.jpg', title: 'Beige Bedroom Curtains', category: 'curtains' },
+    { src: 'images/curtain-beige-double-1.jpg', title: 'Double Layer Beige Curtains', category: 'curtains' },
+    { src: 'images/curtain-beige-sheer-1.jpg', title: 'Sheer Beige Window Treatment', category: 'curtains' },
+    { src: 'images/curtain-beige-skylight-1.jpg', title: 'Skylight Curtain Installation', category: 'curtains' },
+    { src: 'images/curtain-beige-skylight-3.jpg', title: 'Skylight Beige Drapes', category: 'curtains' },
+    { src: 'images/curtain-beige-tall-1.jpg', title: 'Tall Window Beige Curtains', category: 'curtains' },
+    { src: 'images/curtain-beige-tall-2.jpg', title: 'Floor-to-Ceiling Drapes', category: 'curtains' },
+    { src: 'images/curtain-cream-living-1.jpg', title: 'Cream Living Room Curtains', category: 'curtains' },
+    { src: 'images/curtain-cream-living-2.jpg', title: 'Elegant Cream Drapes', category: 'curtains' },
+    { src: 'images/curtain-cream-sheer-bedroom.jpg', title: 'Sheer Cream Bedroom Curtains', category: 'curtains' },
+    { src: 'images/curtain-grey-bedroom-1.jpg', title: 'Grey Bedroom Curtains', category: 'curtains' },
+    { src: 'images/curtain-grey-sheer-1.jpg', title: 'Grey Sheer Curtains', category: 'curtains' },
+    { src: 'images/curtain-grey-sheer-2.jpg', title: 'Double Grey Sheer Panels', category: 'curtains' },
+    { src: 'images/curtain-grey-skylight-2.jpg', title: 'Grey Skylight Curtains', category: 'curtains' },
+    { src: 'images/curtain-room-view-1.jpg', title: 'Complete Room Curtain View', category: 'curtains' },
+    { src: 'images/curtain-room-view-3.jpg', title: 'Bedroom Curtain Ensemble', category: 'curtains' },
+    { src: 'images/curtain-room-view-4.jpg', title: 'Curtain Room Transformation', category: 'curtains' },
+    { src: 'images/curtain-stairway-dark.jpg', title: 'Stairway Dark Curtains', category: 'curtains' },
+    { src: 'images/curtain-white-sheer-stairway.jpg', title: 'White Sheer Stairway Drapes', category: 'curtains' },
+    { src: 'images/roman-blind-beige-1.jpg', title: 'Beige Roman Blind', category: 'blinds' },
+    { src: 'images/roman-blind-beige-2.jpg', title: 'Roman Blind with Curtain Combo', category: 'blinds' },
+    { src: 'images/curtain-roman-blind-room.jpg', title: 'Roman Blind & Curtain Setup', category: 'blinds' },
+    { src: 'images/sofa-cushion-grey-1.jpg', title: 'Grey Sofa Cushion Set', category: 'upholstery' },
+    { src: 'images/sofa-cushion-grey-2.jpg', title: 'Cushion Collection', category: 'upholstery' },
+    { src: 'images/sofa-cushion-grey-3.jpg', title: 'Decorative Cushion Arrangement', category: 'upholstery' },
+    { src: 'images/headboard-teal-diamond-chandelier.jpg', title: 'Teal Diamond with Crystal Chandelier', category: 'headboards' },
+    { src: 'images/headboard-luxury-velvet-gold.jpg', title: 'Luxury Velvet with Gold Accents', category: 'headboards' },
+    { src: 'images/headboard-herringbone-cushions.jpg', title: 'Herringbone Pattern with Cushions', category: 'headboards' },
+    { src: 'images/headboard-blue-led-diamond.jpg', title: 'Blue LED Diamond Pattern', category: 'headboards' },
+    { src: 'images/headboard-marble-led-channels.jpg', title: 'Marble Wall with LED Channels', category: 'headboards' },
+    { src: 'images/headboard-luxury-tufted-bedroom.jpg', title: 'Luxury Tufted Bedroom Setup', category: 'headboards' },
+    { src: 'images/headboard-scalloped-white-curtains.jpg', title: 'Scalloped Headboard with White Curtains', category: 'headboards' },
+    { src: 'images/headboard-scalloped-curtains-angle2.jpg', title: 'Designer Scalloped Headboard', category: 'headboards' },
+    { src: 'images/headboard-tropical-wallpaper.jpg', title: 'Tropical Wallpaper Bedroom', category: 'headboards' },
+    { src: 'images/headboard-tan-leather-panel.jpg', title: 'Tan Leather Panel Headboard', category: 'headboards' },
+    { src: 'images/headboard-purple-arch-blinds.jpg', title: 'Purple Arch with Roman Blinds', category: 'headboards' },
+    { src: 'images/headboard-diamond-tufted-amber.jpg', title: 'Diamond Tufted Amber Headboard', category: 'headboards' },
+    { src: 'images/headboard-braided-gold-accent.jpg', title: 'Braided Pink & Gold Accent Wall', category: 'headboards' },
+    { src: 'images/headboard-honeycomb-gold-panel.jpg', title: 'Honeycomb Gold Panel Design', category: 'headboards' },
+    { src: 'images/headboard-geometric-gold-led.jpg', title: 'Geometric Diamond with Gold LED', category: 'headboards' },
+    { src: 'images/curtain-bedroom-dark-1.jpg', title: 'Dark Bedroom Curtains', category: 'curtains' },
+    { src: 'images/curtain-worker-install.jpg', title: 'Professional Curtain Installation', category: 'curtains' },
+];
+
+async function seedExistingData() {
+    if (!firebaseReady) return showToast('Firebase not ready', true);
+    const btn = document.getElementById('seed-data-btn');
+    if (!btn) return;
+    btn.disabled = true;
+    btn.textContent = 'Migrating... 0/' + EXISTING_GALLERY.length;
+
+    const baseUrl = window.location.origin + '/';
+    let count = 0;
+    let errors = 0;
+
+    for (const item of EXISTING_GALLERY) {
+        try {
+            // Check if already exists by title
+            const existing = await db.collection('gallery')
+                .where('title', '==', item.title).get();
+            if (!existing.empty) {
+                count++;
+                btn.textContent = `Skipping duplicates... ${count}/${EXISTING_GALLERY.length}`;
+                continue;
+            }
+            await db.collection('gallery').add({
+                title: item.title,
+                category: item.category,
+                imageUrl: baseUrl + item.src,
+                storagePath: '',
+                createdAt: firebase.firestore.Timestamp.fromDate(new Date(Date.now() - (EXISTING_GALLERY.length - count) * 60000))
+            });
+            count++;
+            btn.textContent = `Migrating... ${count}/${EXISTING_GALLERY.length}`;
+        } catch (err) {
+            errors++;
+            console.error('Seed error for', item.title, err);
+        }
+    }
+
+    btn.textContent = '✓ Migration Complete!';
+    btn.style.background = 'rgba(46, 204, 113, 0.2)';
+    btn.style.color = '#2ecc71';
+    btn.style.borderColor = '#2ecc71';
+    showToast(`Migrated ${count - errors} images! ${errors ? errors + ' errors.' : ''}`);
+    loadGallery();
+}
