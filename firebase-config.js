@@ -34,9 +34,9 @@ function initFirebase() {
             return false;
         }
         app = firebase.initializeApp(firebaseConfig);
-        db = firebase.firestore();
-        auth = firebase.auth();
-        storage = firebase.storage();
+        if (typeof firebase.firestore === 'function') db = firebase.firestore();
+        if (typeof firebase.auth === 'function') auth = firebase.auth();
+        if (typeof firebase.storage === 'function') storage = firebase.storage();
         console.log('Firebase initialized successfully');
         return true;
     } catch (error) {
