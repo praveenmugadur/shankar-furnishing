@@ -15,12 +15,12 @@
    ============================================ */
 
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY_HERE",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyDW8ED4U7a737w7QVKoKN0A1LMHtoZGKy0",
+    authDomain: "shankar-furnishing-1a96f.firebaseapp.com",
+    projectId: "shankar-furnishing-1a96f",
+    storageBucket: "shankar-furnishing-1a96f.firebasestorage.app",
+    messagingSenderId: "191434812660",
+    appId: "1:191434812660:web:7e7f16a98fd414854f02a1"
 };
 
 // Initialize Firebase
