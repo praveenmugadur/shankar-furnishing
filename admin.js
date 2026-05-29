@@ -146,25 +146,32 @@ async function loadGallery() {
     }
     grid.innerHTML = '<div class="gallery-loading">Loading...</div>';
     try {
-        let query = db.collection('gallery').orderBy('createdAt', 'desc');
-        if (adminFilter !== 'all') query = query.where('category', '==', adminFilter);
-        const snap = await query.get();
-        if (snap.empty) {
+        const snap = await db.collection('gallery').orderBy('createdAt', 'desc').get();
+        let items = [];
+        snap.forEach(doc => {
+            const d = doc.data();
+            d._id = doc.id;
+            items.push(d);
+        });
+        // Client-side filtering
+        if (adminFilter !== 'all') {
+            items = items.filter(item => item.category === adminFilter);
+        }
+        if (items.length === 0) {
             grid.innerHTML = '<div class="gallery-loading">No images yet. Click "Add Image" to get started.</div>';
             return;
         }
         grid.innerHTML = '';
-        snap.forEach(doc => {
-            const d = doc.data();
+        items.forEach(d => {
             grid.innerHTML += `
-                <div class="admin-gallery-item" data-id="${doc.id}">
+                <div class="admin-gallery-item" data-id="${d._id}">
                     <img src="${d.imageUrl}" alt="${d.title}" loading="lazy">
                     <div class="admin-gallery-item-info">
                         <div class="admin-gallery-item-title">${d.title}</div>
                         <div class="admin-gallery-item-cat">${d.category}</div>
                         <div class="admin-gallery-item-actions">
-                            <button class="btn-small btn-edit" onclick="editImage('${doc.id}')">Edit</button>
-                            <button class="btn-danger" onclick="deleteImage('${doc.id}','${d.storagePath || ''}')">Delete</button>
+                            <button class="btn-small btn-edit" onclick="editImage('${d._id}')">Edit</button>
+                            <button class="btn-danger" onclick="deleteImage('${d._id}','${d.storagePath || ''}')">Delete</button>
                         </div>
                     </div>
                 </div>`;
